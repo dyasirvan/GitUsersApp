@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">GitUsers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_search">Search</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="background_wave">Background Wave</string>
+    <string name="find_a_github_account_here">Find A GitHub Account Here</string>
+    <string name="title">Title</string>
+    <string name="id">ID</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="data_not_exist">Followers does not exist</string>
+    <string name="not_following">Not following anyone</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="success_saved">Data Saved Successfully</string>
+    <string name="no_favorites_yet">No favorites yet</string>
+    <string name="share_with">Share with</string>
+    <string name="message_share">Hi let\'s have a look at this github account, this is awesome</string>
+    <string name="alert_title">Alert</string>
+    <string name="alert_message">Are you sure to delete this item ?</string>
+    <string name="alert_btn_yes">Yes</string>
+    <string name="alert_btn_no">No</string>
+    <string name="delete_message">Deleted Favorite has Successfully</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="text_daily">Reminder for return the app</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="change_language">Change Language</string>
+    <string name="version_app">Version 1.0</string>
+    <string name="general">General</string>
+    <string name="info">Info</string>
+    <string name="set_daily_reminder">Successfully Set Daily Reminder</string>
+    <string name="unset_daily_reminder">Successfully Unset Daily Reminder</string>
+
+</resources>

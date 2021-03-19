@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:id="@+id/key_daily_reminder"
+        android:defaultValue="false"
+        android:key="key_daily_reminder"
+        android:title="@string/daily_reminder"
+        android:summary="@string/text_daily"
+        app:iconSpaceReserved="false" />
+
+    <Preference
+        app:title="Bahasa"
+        app:summary="@string/change_language"
+        app:iconSpaceReserved="false"
+        app:key="key_language"/>
+
+    <Preference
+        app:summary="@string/version_app"
+        app:iconSpaceReserved="false"
+        app:title="Info App"/>
+
+
+
+
+</PreferenceScreen>

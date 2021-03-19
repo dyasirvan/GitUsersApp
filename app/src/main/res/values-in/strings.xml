@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GitUsers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_search">Pencarian</string>
+    <string name="title_favorite">Favorit</string>
+    <string name="background_wave">Background Wave</string>
+    <string name="find_a_github_account_here">Temukan Akun GitHub Di Sini</string>
+    <string name="title">Judul</string>
+    <string name="id">ID</string>
+    <string name="follower">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="data_not_exist">Belum ada pengikut</string>
+    <string name="not_following">Tidak mengikuti siapapun</string>
+    <string name="name">Nama</string>
+    <string name="address">Alamat</string>
+    <string name="success_saved">Data Berhasil Disimpan</string>
+    <string name="no_favorites_yet">Tidak ada favorit</string>
+    <string name="share_with">Bagikan dengan</string>
+    <string name="message_share">Hai, mari kita lihat akun github ini, ini luar biasa</string>
+    <string name="alert_title">Peringata</string>
+    <string name="alert_message">Apakah kamu mau menghapus item ini ?</string>
+    <string name="alert_btn_yes">Ya</string>
+    <string name="alert_btn_no">Tidak</string>
+    <string name="delete_message">Berhasil menghapus dari favorit</string>
+    <string name="title_activity_settings">Pengaturan</string>
+    <string name="settings">Pengaturan</string>
+    <string name="text_daily">Pengingat untuk membuka kembali app</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="change_language">Ubah Bahasa</string>
+    <string name="version_app">Versi 1.0</string>
+    <string name="general">Umum</string>
+    <string name="info">Info</string>
+    <string name="set_daily_reminder">Berhasil Atur Pengingat Harian</string>
+    <string name="unset_daily_reminder">Berhasil Membatalkan Pengingat Harian</string>
+
+</resources>
