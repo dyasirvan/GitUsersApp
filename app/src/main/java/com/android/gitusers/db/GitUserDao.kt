@@ -1,5 +1,6 @@
 package com.android.gitusers.db
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.android.gitusers.model.ResultItemsSearch
@@ -15,4 +16,17 @@ interface GitUserDao {
 
     @Delete
     suspend fun deleteData(data: ResultItemsSearch)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun upsertByProvider(resultItemsSearch: ResultItemsSearch?): Long
+
+    @Query("SELECT * FROM $TABLE_NAME")
+    fun selectAll(): Cursor?
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE id=:id")
+    fun selectByIdProvider(id: Int): Cursor?
+
+    @Query("DELETE FROM $TABLE_NAME WHERE id = :id")
+    fun deleteById(id: Int): Int
+
 }

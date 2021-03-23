@@ -9,7 +9,7 @@ import com.android.gitusers.model.ResultItemsSearch
 
 @Database(
      entities = [ResultItemsSearch::class],
-     version = 1
+     version = 2
 )
 abstract class GitUserDatabase : RoomDatabase() {
     abstract fun getDatasDao(): GitUserDao
@@ -24,6 +24,8 @@ abstract class GitUserDatabase : RoomDatabase() {
         }
 
         private fun createDatabase(context: Context) =
-            Room.databaseBuilder(context.applicationContext, GitUserDatabase::class.java, "git_db.db").build()
+            Room.databaseBuilder(context.applicationContext, GitUserDatabase::class.java, "git_db.db")
+                .fallbackToDestructiveMigration()
+                .build()
     }
 }
