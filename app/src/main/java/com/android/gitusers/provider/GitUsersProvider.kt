@@ -18,12 +18,9 @@ class GitUsersProvider : ContentProvider() {
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
         when(sUriMatcher.match(uri)){
-            GIT -> {
+            GIT, GIT_TAGS -> {
                 throw IllegalArgumentException("Invalid URI, only can update with ID$uri")
 
-            }
-            GIT_TAGS -> {
-                throw IllegalArgumentException("Invalid URI, only can update with ID$uri")
             }
             GIT_ID -> {
                 val count: Int = gitUserDao.deleteById(Integer.parseInt(uri.lastPathSegment))
@@ -68,7 +65,7 @@ class GitUsersProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        gitUserDao = context?.let { GitUserDatabase.invoke(it).getDatasDao() }!!
+        gitUserDao = GitUserDatabase.invoke(context!!).getDatasDao()
         return true
     }
 
@@ -81,16 +78,18 @@ class GitUsersProvider : ContentProvider() {
         if(context == null){
             return null
         }
-        return when (sUriMatcher.match(uri)) {
+        when (sUriMatcher.match(uri)) {
             GIT -> {
                 cursor = gitUserDao.selectAll()!!
                 cursor.setNotificationUri(context?.contentResolver, uri)
-                cursor
+                Log.d(TAG, "query: ${gitUserDao.selectAll()}")
+                return cursor
             }
             GIT_ID -> {
                 cursor = gitUserDao.selectByIdProvider(Integer.parseInt(uri.lastPathSegment))!!
                 cursor.setNotificationUri(context?.contentResolver, uri)
-                cursor
+                Log.d(TAG, "query: $cursor")
+                return cursor
             }
             else->{
                 throw IllegalArgumentException("Unknown URI:$uri")
@@ -112,7 +111,7 @@ class GitUsersProvider : ContentProvider() {
         private const val GIT_ID = 2
         private const val GIT_TAGS = 3
         private const val TAG = "ContentProvider"
-        private const val AUTHORITY = "com.android.gitusers"
+        private const val AUTHORITY = "com.android.gituser"
 
         init {
             sUriMatcher.addURI(AUTHORITY, TABLE_NAME, GIT)

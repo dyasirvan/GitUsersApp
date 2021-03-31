@@ -11,7 +11,7 @@
         app:iconSpaceReserved="false" />
 
     <Preference
-        app:title="Bahasa"
+        app:title="@string/bahasa"
         app:summary="@string/change_language"
         app:iconSpaceReserved="false"
         app:key="key_language"/>

@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.consumerapp">
 
-    <uses-permission android:name="com.android.gitusers.READ_DATABASE"/>
-    <uses-permission android:name="com.android.gitusers.WRITE_DATABASE"/>
+    <uses-permission android:name="com.android.gituser.READ_DATABASE"/>
+    <uses-permission android:name="com.android.gituser.WRITE_DATABASE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +25,7 @@
     </application>
 
     <queries>
-        <package android:name="com.android.gitusers"/>
+        <package android:name="com.android.gituser"/>
     </queries>
 
 </manifest>

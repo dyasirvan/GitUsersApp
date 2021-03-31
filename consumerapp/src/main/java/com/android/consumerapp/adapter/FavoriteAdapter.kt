@@ -1,49 +1,52 @@
 package com.android.consumerapp.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.consumerapp.R
 import com.android.consumerapp.databinding.ItemGithubAccountBinding
 import com.android.consumerapp.model.ResultItem
-import com.android.consumerapp.utils.IOnItemClickCallback
+import com.android.consumerapp.utils.CustomOnItemClickListener
 import com.bumptech.glide.Glide
+import java.util.*
 
-class FavoriteAdapter(private val listAccount: List<ResultItem>) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+class FavoriteAdapter(private val activity: Activity) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
-    private lateinit var onItemClickCallback: IOnItemClickCallback
+    var listResultItem = ArrayList<ResultItem>()
+        set(listResultItem) {
+            this.listResultItem.clear()
+            this.listResultItem.addAll(listResultItem)
+            notifyDataSetChanged()
+        }
 
-    fun setOnItemClickCallback(onItemClickCallback: IOnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
-
-    fun getData(position: Int): ResultItem {
-        return listAccount[position]
-    }
-
-    inner class FavoriteViewHolder(val binding: ItemGithubAccountBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        val binding = ItemGithubAccountBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-        return FavoriteViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        with(holder){
-            with(listAccount[position]){
-                binding.tvTitle.text = login
-                binding.tvId.text = id.toString()
-                Glide.with(holder.itemView.context)
-                    .load(avatar_url)
+    inner class FavoriteViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+        private val binding = ItemGithubAccountBinding.bind(itemView)
+        fun bind(resultItem: ResultItem){
+            binding.tvTitle.text = resultItem.login
+            binding.tvId.text = resultItem.id.toString()
+            Glide.with(itemView.context)
+                    .load(resultItem.avatar_url)
                     .into(binding.imgPhoto)
-                holder.itemView.setOnClickListener {
-                    onItemClickCallback.onItemClicked(listAccount[holder.adapterPosition])
+            binding.cvItemGitUser.setOnClickListener(CustomOnItemClickListener(adapterPosition, object : CustomOnItemClickListener.OnItemClickCallback{
+                override fun onItemClicked(view: View, position: Int) {
+                    TODO("Not yet implemented")
                 }
-            }
+            }))
         }
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_github_account, parent, false)
+        return FavoriteViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+        holder.bind(listResultItem[position])
+    }
+
     override fun getItemCount(): Int {
-        return listAccount.size
+        return listResultItem.size
     }
 }

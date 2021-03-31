@@ -56,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
 
 //        load data from view model
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        detailViewModel.detailDataUser((detail.login?:0) as String)
+        detailViewModel.detailDataUser((detail.login?:0).toString())
         detailViewModel.data.observe({lifecycle}, {
             binding.tvName.text = it.name
             binding.tvAddress.text = it.location

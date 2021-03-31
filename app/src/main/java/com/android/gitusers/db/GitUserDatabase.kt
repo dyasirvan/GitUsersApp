@@ -6,10 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.android.gitusers.model.ResultItemsSearch
 
-
 @Database(
-     entities = [ResultItemsSearch::class],
-     version = 2
+        entities = [ResultItemsSearch::class],
+        version = 3
 )
 abstract class GitUserDatabase : RoomDatabase() {
     abstract fun getDatasDao(): GitUserDao

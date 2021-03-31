@@ -33,5 +33,7 @@
     <string name="info">Info</string>
     <string name="set_daily_reminder">Successfully Set Daily Reminder</string>
     <string name="unset_daily_reminder">Successfully Unset Daily Reminder</string>
+    <string name="empty_text">NO DATA</string>
+    <string name="bahasa">Language</string>
 
 </resources>

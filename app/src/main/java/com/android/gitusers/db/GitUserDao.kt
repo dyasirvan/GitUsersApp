@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.android.gitusers.model.ResultItemsSearch
 import com.android.gitusers.utils.Constants.Companion.TABLE_NAME
+import com.android.gitusers.utils.Constants.Companion._ID
 
 @Dao
 interface GitUserDao {
@@ -23,10 +24,10 @@ interface GitUserDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun selectAll(): Cursor?
 
-    @Query("SELECT * FROM $TABLE_NAME WHERE id=:id")
+    @Query("SELECT * FROM $TABLE_NAME WHERE $_ID=:id")
     fun selectByIdProvider(id: Int): Cursor?
 
-    @Query("DELETE FROM $TABLE_NAME WHERE id = :id")
+    @Query("DELETE FROM $TABLE_NAME WHERE $_ID = :id")
     fun deleteById(id: Int): Int
 
 }

@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:visibility="gone"
-        android:fontFamily="@font/poppins"
         android:text="@string/data_not_exist"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

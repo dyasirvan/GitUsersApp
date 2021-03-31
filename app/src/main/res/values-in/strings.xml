@@ -34,5 +34,7 @@
     <string name="info">Info</string>
     <string name="set_daily_reminder">Berhasil Atur Pengingat Harian</string>
     <string name="unset_daily_reminder">Berhasil Membatalkan Pengingat Harian</string>
+    <string name="empty_text">TIDAK ADA DATA</string>
+    <string name="bahasa">Bahasa</string>
 
 </resources>
