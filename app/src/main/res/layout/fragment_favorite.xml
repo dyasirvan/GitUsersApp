@@ -7,13 +7,12 @@
     tools:context=".ui.favorite.FavoriteFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_favorite"
         android:layout_margin="@dimen/margin_normal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_favorite"/>
+        android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/tv_no_favorites_yet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -27,11 +26,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
+        android:id="@+id/progress_bar_favorite"
         android:visibility="gone"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="@dimen/margin_normal"
-        android:id="@+id/progress_bar_favorite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

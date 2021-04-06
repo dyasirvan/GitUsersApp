@@ -1,15 +1,15 @@
-package com.android.gitusers.ui.following
+package com.android.consumerapp.ui.following
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.gitusers.adapter.FollowingAdapter
-import com.android.gitusers.databinding.FragmentFollowingBinding
-import com.android.gitusers.utils.Constants.Companion.KEY_USERNAME
+import com.android.consumerapp.adapter.FollowingAdapter
+import com.android.consumerapp.databinding.FragmentFollowingBinding
+import com.android.consumerapp.ui.detail.DetailActivity.Companion.KEY_USERNAME
 
 class FollowingFragment : Fragment() {
     private var _binding: FragmentFollowingBinding? = null
@@ -28,7 +28,7 @@ class FollowingFragment : Fragment() {
 
         val bundle = arguments
         val username = bundle!!.getString(KEY_USERNAME)
-        followingViewModel = ViewModelProviders.of(this).get(FollowingViewModel::class.java)
+        followingViewModel = ViewModelProvider(this).get(FollowingViewModel::class.java)
         followingViewModel.getFollowing(username!!)
         followingViewModel.data.observe({lifecycle}, {
             if(it.isEmpty()){
@@ -50,10 +50,10 @@ class FollowingFragment : Fragment() {
 
     private fun textViewNotFollowingVisibility(state: Boolean){
         if(state){
-            binding.tvNotExist.visibility = View.VISIBLE
+            binding.tvNotFollowing.visibility = View.VISIBLE
             binding.rvFollowing.visibility = View.GONE
         }else{
-            binding.tvNotExist.visibility = View.GONE
+            binding.tvNotFollowing.visibility = View.GONE
             binding.rvFollowing.visibility = View.VISIBLE
         }
     }

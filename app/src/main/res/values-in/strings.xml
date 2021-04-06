@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">GitUsers</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_search">Pencarian</string>
     <string name="title_favorite">Favorit</string>
     <string name="background_wave">Background Wave</string>
@@ -30,8 +29,6 @@
     <string name="daily_reminder">Pengingat Harian</string>
     <string name="change_language">Ubah Bahasa</string>
     <string name="version_app">Versi 1.0</string>
-    <string name="general">Umum</string>
-    <string name="info">Info</string>
     <string name="set_daily_reminder">Berhasil Atur Pengingat Harian</string>
     <string name="unset_daily_reminder">Berhasil Membatalkan Pengingat Harian</string>
     <string name="empty_text">TIDAK ADA DATA</string>

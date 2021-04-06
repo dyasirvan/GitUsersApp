@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.consumerapp.MainActivity.Companion.CONTENT_URI
 import com.android.consumerapp.adapter.FavoriteAdapter
 import com.android.consumerapp.databinding.ActivityMainBinding
 import com.android.consumerapp.helper.MappingHelper
@@ -20,7 +19,6 @@ import kotlinx.coroutines.*
 class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding
     private lateinit var favoriteAdapter: FavoriteAdapter
-    val uiScope = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -52,7 +50,6 @@ class MainActivity : AppCompatActivity(){
                 favoriteAdapter.listResultItem = it
             }
         }
-
     }
 
     private fun loadNotesAsync() {
@@ -63,14 +60,13 @@ class MainActivity : AppCompatActivity(){
                 MappingHelper.mapCursorToArrayList(cursor)
             }
             val resultItem = deferredResultItem.await()
-//            Log.d("ConsumerApp", "loadNotesAsync: $resultItem")
             binding.progressBar.visibility = View.GONE
             if (resultItem.size > 0) {
                 favoriteAdapter.listResultItem = resultItem
 
             } else {
                 favoriteAdapter.listResultItem = ArrayList()
-                Toast.makeText(applicationContext, "Data Kosong", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Empty List", Toast.LENGTH_LONG).show()
             }
 
         }

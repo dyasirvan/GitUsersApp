@@ -7,17 +7,67 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
+import com.android.gitusers.MainActivity
 import com.android.gitusers.R
+import com.android.gitusers.ui.detail.DetailActivity
 
 /**
  * Implementation of App Widget functionality.
  */
 class GitUsersAppWidget : AppWidgetProvider() {
-    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        // There may be multiple widgets active, so update all of them
+
+    private fun updateAppWidget(
+        context: Context, appWidgetManager: AppWidgetManager,
+        appWidgetId: Int
+    ) {
+        // set intent for widget service that will create the views
+        val intent = Intent(context, StackWidgetServices::class.java)
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+        intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
+        // Construct the RemoteViews object
+        val views = RemoteViews(context.packageName, R.layout.git_users_app_widget)
+        views.setRemoteAdapter(R.id.stack_view, intent)
+        views.setEmptyView(R.id.stack_view, R.id.empty_view)
+
+        // Set intent for item click
+        val viewIntent = Intent(context, MainActivity::class.java)
+        viewIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+        val viewPendingIntent =
+            PendingIntent.getActivity(context, 0, viewIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        views.setPendingIntentTemplate(R.id.stack_view, viewPendingIntent)
+
+        // Instruct the widget manager to update the widget
+        appWidgetManager.updateAppWidget(appWidgetId, views)
+    }
+
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
+        updateAllWidget(
+            context,
+            appWidgetManager,
+            appWidgetIds
+        )
+        super.onUpdate(context, appWidgetManager, appWidgetIds)
+    }
+
+    private fun updateAllWidget(
+        context: Context?,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
         for (appWidgetId in appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId)
+            if (context != null) {
+                updateAppWidget(
+                    context,
+                    appWidgetManager,
+                    appWidgetId
+                )
+            }
         }
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stack_view_item)
     }
 
     override fun onEnabled(context: Context) {
@@ -35,25 +85,4 @@ class GitUsersAppWidget : AppWidgetProvider() {
     override fun onDeleted(context: Context?, appWidgetIds: IntArray?) {
         super.onDeleted(context, appWidgetIds)
     }
-    companion object{
-        const val TOAST_ACTION = "com.android.gitusers.TOAST_ACTION"
-        const val EXTRA_ITEM = "com.android.gitusers.EXTRA_ITEM"
-    }
-}
-
-internal fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-    // set intent for widget service that will create the views
-    val intent = Intent(context, StackWidgetServices::class.java)
-    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-    intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
-    val views = RemoteViews(context.packageName, R.layout.git_users_app_widget)
-    views.setRemoteAdapter(R.id.stack_view, intent)
-    views.setEmptyView(R.id.stack_view, R.id.empty_view)
-    val toastIntent = Intent(context, GitUsersAppWidget::class.java)
-    toastIntent.action = GitUsersAppWidget.TOAST_ACTION
-    toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-    intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
-    val toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-    views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent)
-    appWidgetManager.updateAppWidget(appWidgetId, views)
 }

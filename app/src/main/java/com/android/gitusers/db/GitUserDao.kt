@@ -15,6 +15,9 @@ interface GitUserDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun getAllData(): LiveData<List<ResultItemsSearch>>
 
+    @Query("SELECT * FROM $TABLE_NAME")
+    fun getAllNotLiveData(): List<ResultItemsSearch>
+
     @Delete
     suspend fun deleteData(data: ResultItemsSearch)
 

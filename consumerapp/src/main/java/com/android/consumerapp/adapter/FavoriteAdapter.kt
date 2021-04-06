@@ -1,10 +1,13 @@
 package com.android.consumerapp.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.consumerapp.ui.detail.DetailActivity
+import com.android.consumerapp.ui.detail.DetailActivity.Companion.KEY_TO_DETAIL
 import com.android.consumerapp.R
 import com.android.consumerapp.databinding.ItemGithubAccountBinding
 import com.android.consumerapp.model.ResultItem
@@ -31,7 +34,9 @@ class FavoriteAdapter(private val activity: Activity) : RecyclerView.Adapter<Fav
                     .into(binding.imgPhoto)
             binding.cvItemGitUser.setOnClickListener(CustomOnItemClickListener(adapterPosition, object : CustomOnItemClickListener.OnItemClickCallback{
                 override fun onItemClicked(view: View, position: Int) {
-                    TODO("Not yet implemented")
+                    activity.startActivity(Intent(activity, DetailActivity::class.java).apply {
+                        putExtra(KEY_TO_DETAIL,resultItem)
+                    })
                 }
             }))
         }

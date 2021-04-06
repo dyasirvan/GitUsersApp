@@ -10,5 +10,7 @@ class GitUserRepository(
 
     fun getDataFromDb() = db.getDatasDao().getAllData()
 
+    fun getNotLiveDataFromDb() = db.getDatasDao().getAllNotLiveData()
+
     suspend fun deleteDataFromDb(data: ResultItemsSearch) = db.getDatasDao().deleteData(data)
 }

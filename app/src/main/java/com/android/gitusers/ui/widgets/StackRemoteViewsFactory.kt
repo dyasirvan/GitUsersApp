@@ -1,9 +1,8 @@
 package com.android.gitusers.ui.widgets
 
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.widget.ImageView
+import android.graphics.Bitmap
+import android.os.Binder
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.fragment.app.FragmentActivity
@@ -16,12 +15,11 @@ import com.android.gitusers.repository.GitUserRepository
 import com.android.gitusers.ui.favorite.FavoriteViewModel
 import com.bumptech.glide.Glide
 import java.util.*
+import java.util.concurrent.ExecutionException
 
 class StackRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteViewsFactory {
     companion object{
-        private var mWidgetItems : List<ResultItemsSearch> = ArrayList()
-        private lateinit var favoriteAdapter: FavoriteAdapter
-        private lateinit var favoriteViewModel: FavoriteViewModel
+        private var mWidgetItems : ArrayList<ResultItemsSearch> = ArrayList()
     }
     override fun onCreate() {
     }
@@ -29,15 +27,13 @@ class StackRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteV
     override fun onDataSetChanged() {
         val gitUserRepository = GitUserRepository(context.let { GitUserDatabase.invoke(it) })
 
-        favoriteAdapter = FavoriteAdapter(ArrayList<ResultItemsSearch>())
-        favoriteViewModel = ViewModelProviders.of(context as FragmentActivity).get(FavoriteViewModel::class.java)
-        favoriteViewModel.getDataUser(gitUserRepository).observe({ context.lifecycle }, {
-            favoriteAdapter = FavoriteAdapter(it)
-            favoriteAdapter.notifyDataSetChanged()
-        })
+        val identityToken = Binder.clearCallingIdentity()
+        mWidgetItems.addAll(gitUserRepository.getNotLiveDataFromDb())
+        Binder.restoreCallingIdentity(identityToken)
     }
 
     override fun onDestroy() {
+        mWidgetItems.clear()
     }
 
     override fun getCount(): Int {
@@ -47,21 +43,23 @@ class StackRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteV
     override fun getViewAt(position: Int): RemoteViews {
         val resultItemsSearch = mWidgetItems[position]
         val rv = RemoteViews(context.packageName, R.layout.git_users_widget_item)
-        val img: ImageView? = null
-        if (img != null) {
-            Glide.with(context)
+
+        if (mWidgetItems.isNotEmpty()) {
+            try {
+                val bitmap: Bitmap = Glide.with(context)
+                    .asBitmap()
                     .load(resultItemsSearch.avatar_url)
-                    .into(img)
-            img.buildDrawingCache()
-            val bmap = img.drawingCache
-            rv.setImageViewBitmap(R.id.image_poster_widget, bmap)
-            rv.setTextViewText(R.id.text_title_widget, resultItemsSearch.login)
+                    .submit(200, 100)
+                    .get()
+                rv.setImageViewBitmap(R.id.image_poster_widget, bitmap)
+            } catch (e: ExecutionException) {
+                e.printStackTrace()
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
         }
-        val extras = Bundle()
-        extras.putInt(GitUsersAppWidget.EXTRA_ITEM, position)
-        val fillInIntent = Intent()
-        fillInIntent.putExtras(extras)
-        rv.setOnClickFillInIntent(R.id.image_poster_widget, fillInIntent)
+
+        rv.setTextViewText(R.id.text_title_widget, resultItemsSearch.login)
         return rv
     }
 
@@ -74,7 +72,7 @@ class StackRemoteViewsFactory(val context: Context) : RemoteViewsService.RemoteV
     }
 
     override fun getItemId(position: Int): Long {
-        return 0
+        return position.toLong()
     }
 
     override fun hasStableIds(): Boolean {

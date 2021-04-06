@@ -92,11 +92,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/tabs"/>
 
             <ProgressBar
+                android:id="@+id/progress_bar_detail"
                 android:visibility="gone"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="100dp"
-                android:id="@+id/progress_bar_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -133,10 +133,10 @@
         app:srcCompat="@drawable/ic_baseline_favorite_24" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:id="@+id/fab_share"
         android:layout_marginBottom="@dimen/margin_normal"
         app:layout_constraintBottom_toTopOf="@+id/fab_fav"
         app:layout_constraintEnd_toEndOf="@+id/fab_fav"
